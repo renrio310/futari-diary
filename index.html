@@ -1,38 +1,243 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,viewport-fit=cover">
-<title>futari diary</title>
-<style>
-*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,'Hiragino Sans','Yu Gothic',sans-serif;background:linear-gradient(#fff4f7,#fffaf4,#f5fbff);color:#3b3033}.hide{display:none!important}.lock{min-height:100vh;display:grid;place-items:center;padding:24px}.card,.entry{background:#fffffff0;border:1px solid #ffe0e8;border-radius:24px;box-shadow:0 14px 34px #d4567622;padding:16px;margin:12px 0}.lock .card{max-width:390px;width:100%;text-align:center;padding:28px 22px}.icon{width:80px;height:80px;border-radius:26px;background:#ffe1ea;display:grid;place-items:center;margin:0 auto 12px;font-size:38px}h1,h2,h3{margin:0}.sub,.note{color:#8b737a;font-size:13px;line-height:1.6}.pin{width:100%;font-size:28px;text-align:center;letter-spacing:12px;border:2px solid #ffd1dc;border-radius:18px;padding:14px;margin-top:12px}.btn{border:0;border-radius:16px;background:linear-gradient(135deg,#f48aa3,#e85d84);color:white;font-weight:900;padding:13px 16px;box-shadow:0 9px 18px #e85d8433}.btn.full{width:100%;margin-top:12px}.app{max-width:760px;margin:0 auto;padding:12px 10px 80px}.top{position:sticky;top:0;z-index:2;background:#fff7f8dd;backdrop-filter:blur(12px);margin:-12px -10px 12px;padding:12px 10px}.hero{background:linear-gradient(135deg,#fff,#fff0f4);border:1px solid #ffe0e8;border-radius:26px;padding:15px;box-shadow:0 14px 34px #d4567620}.row{display:flex;gap:10px;align-items:center}.mini{width:52px;height:52px;border-radius:17px;background:#ffe1ea;display:grid;place-items:center;font-size:26px}.roles{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}.role{border:1px solid #ffd3dd;background:white;border-radius:15px;padding:10px;font-weight:900;color:#986070}.role.on{background:linear-gradient(135deg,#f48aa3,#e85d84);color:white;border:0}.title{font-size:18px;font-weight:900;margin:6px 0 12px}label{display:block;font-size:13px;color:#8b737a;font-weight:900;margin:11px 0 6px}input,textarea{width:100%;border:1.5px solid #f0d4dc;border-radius:15px;padding:12px;background:white;font:inherit}textarea{min-height:115px;line-height:1.7}.goals{display:grid;gap:8px}.goal{display:flex;gap:9px;align-items:center;background:#fff9fb;border:1px solid #ffe1e9;border-radius:15px;padding:11px}.goal input{width:22px;height:22px;accent-color:#f48aa3}.goal span{font-size:14px;font-weight:700}.entryHead{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.date{background:#fff0f4;color:#d94f73;border-radius:99px;padding:6px 10px;font-size:13px;font-weight:900;white-space:nowrap}.author{color:#8b737a;font-size:12px;font-weight:900}.text{white-space:pre-wrap;line-height:1.75;font-size:15.5px;margin:12px 0}.tags{display:flex;gap:6px;flex-wrap:wrap}.tag{font-size:12px;border-radius:99px;padding:5px 9px;background:#f3f3f3;font-weight:800}.done{background:#e9fff2;color:#278857}.miss{background:#fff0f0;color:#b65b67}.rating{background:#fffdf4;border:1px solid #f7e9b8;border-radius:17px;padding:12px;margin-top:12px}.stars{font-size:25px;display:flex;gap:4px;margin:6px 0}.star{border:0;background:transparent;padding:0;filter:grayscale(1);opacity:.45}.star.on{filter:none;opacity:1}.commentArea{border-top:1px dashed #efd1da;margin-top:12px;padding-top:12px}.comment{background:#eef6ff;border:1px solid #d8ebff;border-radius:17px;padding:10px 12px;margin:8px 0}.who{font-size:12px;color:#4774ad;font-weight:900}.comment p{margin:3px 0 0;white-space:pre-wrap}.formrow{display:flex;gap:8px;margin-top:9px}.formrow input{flex:1}.danger{background:white;border:1px solid #ffd1db;color:#d94f73;border-radius:14px;padding:10px;font-weight:900;margin-top:10px}.count{background:#e85d84;color:white;border-radius:99px;padding:5px 10px;font-size:12px;font-weight:900}.between{display:flex;justify-content:space-between;align-items:center;margin:18px 4px 8px}@media(max-width:520px){.entryHead,.formrow{flex-direction:column}.formrow .btn{width:100%}}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>futari diary</title>
+  <style>
+    :root{--bg:#fff7f8;--card:#fff;--pink:#f48aa3;--rose:#d94f73;--text:#3c2f33;--muted:#8b737a;--shadow:0 12px 30px rgba(210,83,116,.14);--radius:24px}*{box-sizing:border-box}body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",sans-serif;background:linear-gradient(180deg,#fff4f7 0%,#fffaf6 45%,#f7fbff 100%);color:var(--text);min-height:100vh}button,input,textarea{font:inherit}.hidden{display:none!important}.app{max-width:760px;margin:0 auto;padding:18px 14px 90px}.lock{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background:linear-gradient(140deg,#ffe3ec,#fff9f1,#eef7ff)}.lock-card{width:100%;max-width:390px;background:rgba(255,255,255,.9);border-radius:30px;padding:28px 22px;box-shadow:var(--shadow);text-align:center}.icon{width:82px;height:82px;border-radius:26px;margin:0 auto 14px;background:linear-gradient(145deg,#ffd2dd,#fff5ea);display:flex;align-items:center;justify-content:center;font-size:38px;box-shadow:0 10px 22px rgba(244,138,163,.25)}h1{margin:0;font-size:28px}.sub{color:var(--muted);font-size:14px;margin:8px 0 18px}.pin-input{width:100%;font-size:28px;letter-spacing:12px;text-align:center;padding:16px;border:2px solid #ffd5df;border-radius:20px;outline:none;background:#fff}.main-btn{width:100%;border:0;border-radius:18px;padding:15px 18px;margin-top:12px;color:white;background:linear-gradient(135deg,#f48aa3,#e85d84);font-weight:800;box-shadow:0 10px 20px rgba(232,93,132,.25);cursor:pointer}.top{position:sticky;top:0;z-index:5;margin:-18px -14px 16px;padding:14px 14px 10px;background:rgba(255,247,248,.9);backdrop-filter:blur(12px);border-bottom:1px solid rgba(244,138,163,.16)}.hero{background:linear-gradient(135deg,#fff,#fff0f4);border:1px solid #ffe0e8;border-radius:28px;padding:16px;box-shadow:var(--shadow)}.hero-row{display:flex;align-items:center;gap:12px}.mini-icon{width:54px;height:54px;border-radius:18px;background:#ffe0e9;display:grid;place-items:center;font-size:26px}.hero h2{margin:0;font-size:22px}.status{font-size:12px;color:var(--muted);margin-top:3px}.role-switch{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}.role-switch button{padding:12px;border:1px solid #ffd3dd;background:white;border-radius:16px;font-weight:800;color:#9f6170}.role-switch button.active{background:linear-gradient(135deg,#f48aa3,#e85d84);color:#fff;border-color:transparent}.panel,.entry{background:rgba(255,255,255,.94);border:1px solid rgba(244,138,163,.18);border-radius:var(--radius);box-shadow:var(--shadow);padding:16px;margin-bottom:14px}.section-title{font-size:18px;font-weight:900;margin:4px 0 12px;display:flex;align-items:center;gap:6px}label{display:block;font-size:13px;color:var(--muted);font-weight:800;margin:12px 0 6px}input[type="date"],textarea,input[type="text"]{width:100%;border:1.5px solid #f2d8df;border-radius:16px;padding:13px;background:#fff;outline:none}textarea{min-height:118px;resize:vertical;line-height:1.7}.goals{display:grid;gap:8px}.goal{display:flex;gap:10px;align-items:center;background:#fff9fb;border:1px solid #ffe1e9;padding:12px;border-radius:16px}.goal input{width:22px;height:22px;accent-color:#f48aa3;flex:0 0 auto}.goal span{font-size:14px;font-weight:700;line-height:1.45}.save-row{display:flex;gap:8px;margin-top:14px}.save-row button{flex:1}.secondary{border:0;background:#f1f3f5;color:#6a5a60;border-radius:18px;padding:14px;font-weight:900}.entries-title{display:flex;align-items:center;justify-content:space-between;margin:18px 4px 10px}.entries-title h3{margin:0;font-size:18px}.count{font-size:12px;color:#fff;background:#e85d84;border-radius:99px;padding:5px 10px;font-weight:800}.entry{overflow:hidden}.entry-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}.date-pill{background:#fff0f4;color:#d94f73;padding:7px 10px;border-radius:99px;font-size:13px;font-weight:900;white-space:nowrap}.author{color:var(--muted);font-size:12px;font-weight:800}.diary-text{white-space:pre-wrap;line-height:1.75;font-size:15.5px;margin:12px 0}.goal-summary{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0}.tag{font-size:12px;border-radius:99px;padding:5px 9px;background:#f3f3f3;color:#66565b;font-weight:800}.tag.done{background:#e9fff2;color:#278857}.tag.miss{background:#fff0f0;color:#b65b67}.rating-box{background:#fffdf4;border:1px solid #f7e9b8;border-radius:18px;padding:12px;margin-top:12px}.stars{display:flex;gap:5px;font-size:25px;margin:8px 0}.star{border:0;background:transparent;padding:0;filter:grayscale(1);opacity:.45;cursor:pointer}.star.on{filter:none;opacity:1}.comment-box{margin-top:12px;border-top:1px dashed #efd1da;padding-top:12px}.comment{background:#eef6ff;border:1px solid #d8ebff;border-radius:18px;padding:10px 12px;margin:8px 0}.comment .who{font-size:12px;color:#4774ad;font-weight:900;margin-bottom:3px}.comment p{margin:0;white-space:pre-wrap;line-height:1.55}.comment-form{display:flex;gap:8px;margin-top:10px}.comment-form input{flex:1}.comment-form button{width:74px;margin:0;padding:0;border-radius:16px}.empty{text-align:center;color:var(--muted);padding:30px 10px}.small-note{font-size:12px;color:var(--muted);line-height:1.6;margin-top:8px}.danger{background:#fff;border:1px solid #ffd1db;color:#d94f73;border-radius:14px;padding:10px;font-size:12px;font-weight:900}@media(max-width:520px){.app{padding:12px 10px 80px}.top{margin:-12px -10px 14px;padding:12px 10px 10px}h1{font-size:25px}.hero h2{font-size:20px}.panel,.entry{border-radius:22px;padding:14px}.entry-head{flex-direction:column}.date-pill{align-self:flex-start}.comment-form{flex-direction:column}.comment-form button{width:100%;height:46px}}
+  
+  .graph-panel{
+    background:rgba(255,255,255,.95);
+    border:1px solid rgba(244,138,163,.20);
+    border-radius:24px;
+    box-shadow:0 12px 30px rgba(210,83,116,.12);
+    padding:16px;
+    margin:0 0 14px;
+  }
+  .graph-head{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+    align-items:center;
+    margin-bottom:12px;
+  }
+  .graph-head h3{
+    margin:0;
+    font-size:18px;
+  }
+  .avg-pill{
+    background:linear-gradient(135deg,#f48aa3,#e85d84);
+    color:#fff;
+    border-radius:999px;
+    padding:7px 11px;
+    font-size:12px;
+    font-weight:900;
+    white-space:nowrap;
+  }
+  .graph-bars{
+    display:flex;
+    align-items:flex-end;
+    gap:8px;
+    min-height:150px;
+    padding:8px 4px 2px;
+    border-radius:18px;
+    background:linear-gradient(180deg,#fff9fb,#f7fbff);
+    overflow-x:auto;
+  }
+  .bar-wrap{
+    min-width:44px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-end;
+    gap:6px;
+  }
+  .bar{
+    width:24px;
+    min-height:8px;
+    border-radius:999px 999px 8px 8px;
+    background:linear-gradient(180deg,#f48aa3,#e85d84);
+    box-shadow:0 6px 14px rgba(232,93,132,.22);
+  }
+  .bar-label{
+    font-size:10px;
+    color:#8b737a;
+    font-weight:800;
+    white-space:nowrap;
+  }
+  .bar-value{
+    font-size:11px;
+    color:#d94f73;
+    font-weight:900;
+  }
+  .goal-mini-list{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:12px;
+  }
+  .goal-mini{
+    background:#fff9fb;
+    border:1px solid #ffe1e9;
+    border-radius:14px;
+    padding:9px;
+    font-size:12px;
+    font-weight:800;
+    color:#6a5158;
+  }
+  .goal-mini b{
+    color:#d94f73;
+  }
+  @media(max-width:520px){
+    .graph-head{align-items:flex-start;flex-direction:column}
+    .goal-mini-list{grid-template-columns:1fr}
+    .bar-wrap{min-width:42px}
+  }
+
 </style>
+
+<style>
+  .role-guide{
+    margin-top:12px;
+    padding:12px;
+    border-radius:18px;
+    background:linear-gradient(135deg,#fff7fa,#eef6ff);
+    border:1px solid #ffe1e9;
+    font-weight:900;
+    text-align:center;
+    color:#6b4650;
+  }
+  .role-switch button{
+    min-height:74px !important;
+    font-size:15px !important;
+    position:relative;
+    transition:.18s transform,.18s box-shadow,.18s border;
+  }
+  .role-switch button.active{
+    transform:translateY(-2px);
+    box-shadow:0 12px 24px rgba(232,93,132,.28);
+    outline:3px solid rgba(232,93,132,.18);
+  }
+  .role-switch button.active::after{
+    content:"現在選択中";
+    display:block;
+    margin-top:5px;
+    font-size:11px;
+    background:rgba(255,255,255,.28);
+    border-radius:999px;
+    padding:3px 6px;
+  }
+  #rioBtn::before{content:"✍️ ";font-size:18px}
+  #renBtn::before{content:"⭐ ";font-size:18px}
+</style>
+
 </head>
 <body>
-<div id="lock" class="lock"><div class="card"><div class="icon">💞</div><h1>futari diary</h1><p class="sub">2人だけの共有日記</p><input id="pin" class="pin" inputmode="numeric" maxlength="4" placeholder="----"><button class="btn full" onclick="unlock()">開く</button><p id="pinmsg" class="note"></p></div></div>
-<div id="app" class="app hide"><div class="top"><div class="hero"><div class="row"><div class="mini">📖</div><div><h2>futari diary</h2><div id="status" class="note">Firebaseに接続中...</div></div></div><div class="roles"><button id="rio" class="role" onclick="setRole('writer')">髙橋里桜<br><span class="note">記入する側</span></button><button id="ren" class="role" onclick="setRole('commenter')">関谷蓮<br><span class="note">コメント・評価</span></button></div></div></div>
-<div id="writer" class="card"><div class="title">🌷 今日の日記を書く</div><label>日付</label><input id="date" type="date"><label>日記</label><textarea id="diary" placeholder="今日あったこと、思ったことを書いてね。"></textarea><label>目標チェック</label><div id="goals" class="goals"></div><button class="btn full" onclick="saveEntry()">保存する</button><p class="note">保存すると、別端末にも反映されます。</p></div>
-<div id="commenter" class="card hide"><div class="title">💬 蓮さんの画面</div><p class="note">里桜さんが書いた日記にコメントと評価をつけられます。</p></div>
-<div class="between"><h3>日記一覧</h3><span id="count" class="count">0件</span></div><div id="entries"></div></div>
+  <div id="lock" class="lock"><div class="lock-card"><div class="icon">💞</div><h1>futari diary</h1><p class="sub">2人だけの共有日記</p><input id="pin" class="pin-input" inputmode="numeric" maxlength="4" placeholder="----" /><button class="main-btn" onclick="unlock()">開く</button><p id="pinMsg" class="small-note"></p></div></div>
+  <div id="app" class="app hidden">
+    <div class="top"><div class="hero"><div class="hero-row"><div class="mini-icon">📖</div><div><h2>futari diary</h2><div id="syncStatus" class="status">Firebaseに接続中...</div></div></div><div id="roleGuide" class="role-guide">今は「髙橋里桜：記入する側」です</div><div class="role-switch"><button id="rioBtn" class="active" onclick="setRole('writer')">髙橋里桜<br><span style="font-size:12px">記入する側</span></button><button id="renBtn" onclick="setRole('commenter')">関谷蓮<br><span style="font-size:12px">コメント・評価</span></button></div></div></div>
+    <div id="writerPanel" class="panel"><div class="section-title">🌷 今日の日記を書く</div><label>日付</label><input id="dateInput" type="date" /><label>日記</label><textarea id="diaryInput" placeholder="今日あったこと、思ったことを書いてね。"></textarea><label>目標チェック</label><div id="goalsBox" class="goals"></div><div class="save-row"><button class="main-btn" onclick="saveEntry()">保存する</button><button class="secondary" onclick="clearForm()">クリア</button></div><p class="small-note">保存すると、蓮さんの端末にも反映されます。</p></div>
+    <div id="commenterPanel" class="panel hidden"><div class="section-title">💬 蓮さんの画面</div><p class="small-note">里桜さんが書いた日記に、コメントと評価をつけられます。</p></div>
+    
+    <div id="graphPanel" class="graph-panel">
+      <div class="graph-head">
+        <h3>📈 達成グラフ</h3>
+        <span id="avgAchievement" class="avg-pill">平均 0%</span>
+      </div>
+      <div id="graphBars" class="graph-bars"></div>
+      <div id="goalMiniList" class="goal-mini-list"></div>
+      <p class="small-note">最近の日記から、目標チェックの達成率を自動で表示します。</p>
+    </div>
+
+    <div class="entries-title"><h3>日記一覧</h3><span id="entryCount" class="count">0件</span></div><div id="entries"></div>
+  </div>
 <script type="module">
-import{initializeApp}from'https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js';
-import{getFirestore,collection,addDoc,updateDoc,deleteDoc,doc,onSnapshot,query,orderBy,serverTimestamp}from'https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js';
-const firebaseConfig={apiKey:'AIzaSyAVOmllXgrj0k6l83d-OS9KhKzPGaX_Lzg',authDomain:'futari-diary-8379c.firebaseapp.com',projectId:'futari-diary-8379c',storageBucket:'futari-diary-8379c.firebasestorage.app',messagingSenderId:'787620642487',appId:'1:787620642487:web:0ca2d5faf6ee34f0ba5732'};
-const db=getFirestore(initializeApp(firebaseConfig));
-const PIN='0310';
-const goalTexts=['バイト終わりにすぐに歯磨きをする','水とお茶以外のまない','お菓子は２個までにする','お腹がすかなくても少しでも何か食べる','1日800Kcal以上','ヨーグルトを食べる','パンは1日1個','お昼は必ず食べる'];
-let role=localStorage.futariRole||'writer',entries=[];
-window.unlock=()=>{if(pin.value.trim()===PIN){localStorage.pinOK='yes';lock.classList.add('hide');app.classList.remove('hide');init()}else pinmsg.textContent='暗証番号が違います'};
-window.setRole=r=>{role=r;localStorage.futariRole=r;rio.classList.toggle('on',r==='writer');ren.classList.toggle('on',r==='commenter');writer.classList.toggle('hide',r!=='writer');commenter.classList.toggle('hide',r!=='commenter');render()};
-function setup(){goals.innerHTML=goalTexts.map((g,i)=>`<label class="goal"><input type="checkbox" id="g${i}"><span>${esc(g)}</span></label>`).join('')}
-window.saveEntry=async()=>{let d=date.value,t=diary.value.trim();if(!d)return alert('日付を入れてください');if(!t)return alert('日記を書いてください');let gs=goalTexts.map((g,i)=>({text:g,done:document.getElementById('g'+i).checked}));await addDoc(collection(db,'entries'),{date:d,text:t,author:'髙橋里桜',goals:gs,comments:[],rating:0,ratingText:'',createdAt:Date.now(),updatedAt:serverTimestamp()});diary.value='';goalTexts.forEach((_,i)=>document.getElementById('g'+i).checked=false)};
-window.addComment=async id=>{let el=document.getElementById('c'+id),text=el.value.trim();if(!text)return;let e=entries.find(x=>x.id===id);let comments=[...(e.comments||[]),{author:'関谷蓮',text,createdAt:Date.now()}];await updateDoc(doc(db,'entries',id),{comments,updatedAt:serverTimestamp()});el.value=''};
-window.setRating=async(id,rating)=>updateDoc(doc(db,'entries',id),{rating,updatedAt:serverTimestamp()});
-window.saveRatingText=async id=>updateDoc(doc(db,'entries',id),{ratingText:document.getElementById('rt'+id).value.trim(),updatedAt:serverTimestamp()});
-window.del=async id=>{if(confirm('この日記を削除しますか？'))await deleteDoc(doc(db,'entries',id))};
-function listen(){onSnapshot(query(collection(db,'entries'),orderBy('createdAt','desc')),s=>{entries=s.docs.map(d=>({id:d.id,...d.data()}));status.textContent='☁️ 共有中：別端末にも反映されます';render()},e=>{status.textContent='⚠️ 接続エラー：Firebaseルールを確認してください';console.error(e)})}
-function render(){count.textContent=entries.length+'件';if(!entries.length){document.getElementById('entries').innerHTML='<div class="card" style="text-align:center;color:#8b737a">まだ日記がありません。</div>';return}document.getElementById('entries').innerHTML=entries.map(e=>{let done=(e.goals||[]).filter(g=>g.done).length,total=(e.goals||[]).length||goalTexts.length;let stars=[1,2,3,4,5].map(n=>`<button class="star ${(+e.rating||0)>=n?'on':''}" ${role==='commenter'?`onclick="setRating('${e.id}',${n})"`:''}>⭐</button>`).join('');return`<div class="entry"><div class="entryHead"><div><div class="author">記入：${esc(e.author||'髙橋里桜')}</div><div class="text">${esc(e.text||'')}</div></div><div class="date">📅 ${fmt(e.date)}</div></div><div class="tags"><span class="tag done">達成 ${done}/${total}</span>${(e.goals||[]).map(g=>`<span class="tag ${g.done?'done':'miss'}">${g.done?'✓':'・'} ${esc(g.text)}</span>`).join('')}</div><div class="rating"><b>蓮さんの評価</b><div class="stars">${stars}</div>${e.ratingText?`<div class="note">📝 ${esc(e.ratingText)}</div>`:'<div class="note">まだ評価コメントはありません</div>'}${role==='commenter'?`<div class="formrow"><input id="rt${e.id}" placeholder="評価コメントを書く" value="${attr(e.ratingText||'')}"><button class="btn" onclick="saveRatingText('${e.id}')">保存</button></div>`:''}</div><div class="commentArea"><b>コメント</b>${(e.comments||[]).length?(e.comments||[]).map(c=>`<div class="comment"><div class="who">${esc(c.author||'関谷蓮')}</div><p>${esc(c.text||'')}</p></div>`).join(''):'<div class="note">まだコメントはありません</div>'}${role==='commenter'?`<div class="formrow"><input id="c${e.id}" placeholder="コメントを書く"><button class="btn" onclick="addComment('${e.id}')">送信</button></div>`:''}</div>${role==='writer'?`<button class="danger" onclick="del('${e.id}')">この日記を削除</button>`:''}</div>`}).join('')}
-function fmt(d){if(!d)return'';let p=d.split('-');return p.length===3?`${+p[0]}/${+p[1]}/${+p[2]}`:d}function esc(s){return String(s).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]))}function attr(s){return esc(s).replace(/"/g,'&quot;')}
-function init(){setup();setRole(role);date.valueAsDate=new Date();listen()}pin.addEventListener('keydown',e=>{if(e.key==='Enter')unlock()});if(localStorage.pinOK==='yes'){lock.classList.add('hide');app.classList.remove('hide');init()}
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-app.js";
+import { getFirestore, collection, addDoc, updateDoc, deleteDoc, doc, onSnapshot, query, orderBy, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+const firebaseConfig = {apiKey:"AIzaSyAVOmllXgrj0k6l83d-OS9KhKzPGaX_Lzg",authDomain:"futari-diary-8379c.firebaseapp.com",projectId:"futari-diary-8379c",storageBucket:"futari-diary-8379c.firebasestorage.app",messagingSenderId:"787620642487",appId:"1:787620642487:web:0ca2d5faf6ee34f0ba5732"};
+const app=initializeApp(firebaseConfig);const db=getFirestore(app);const PIN="0310";const goals=["バイト終わりにすぐに歯磨きをする","水とお茶以外のまない","お菓子は２個までにする","お腹がすかなくても少しでも何か食べる","1日800Kcal以上","ヨーグルトを食べる","パンは1日1個","お昼は必ず食べる"];
+let role=localStorage.getItem("futariRole")||"writer";let entries=[];
+window.unlock=function(){const val=document.getElementById("pin").value.trim();if(val===PIN){document.getElementById("lock").classList.add("hidden");document.getElementById("app").classList.remove("hidden");init()}else{document.getElementById("pinMsg").textContent="暗証番号が違います"}};
+function setupGoals(){document.getElementById("goalsBox").innerHTML=goals.map((g,i)=>`<label class="goal"><input type="checkbox" id="goal${i}"><span>${escapeHtml(g)}</span></label>`).join("")}
+window.setRole=function(next){role=next;localStorage.setItem("futariRole",role);document.getElementById("rioBtn").classList.toggle("active",role==="writer");document.getElementById("renBtn").classList.toggle("active",role==="commenter");document.getElementById("writerPanel").classList.toggle("hidden",role!=="writer");document.getElementById("commenterPanel").classList.toggle("hidden",role!=="commenter");document.getElementById("roleGuide").textContent = role==="writer" ? "今は「髙橋里桜：記入する側」です" : "今は「関谷蓮：コメント・評価する側」です";render()};
+window.clearForm=function(){document.getElementById("diaryInput").value="";goals.forEach((_,i)=>document.getElementById("goal"+i).checked=false)};
+window.saveEntry=async function(){const date=document.getElementById("dateInput").value;const text=document.getElementById("diaryInput").value.trim();if(!date){alert("日付を入れてください");return}if(!text){alert("日記を書いてください");return}const checks=goals.map((g,i)=>({text:g,done:document.getElementById("goal"+i).checked}));await addDoc(collection(db,"entries"),{date,text,author:"髙橋里桜",goals:checks,comments:[],rating:0,ratingText:"",createdAt:Date.now(),updatedAt:serverTimestamp()});clearForm();document.getElementById("dateInput").valueAsDate=new Date()};
+window.addComment=async function(id){const input=document.getElementById("comment-"+id);const text=input.value.trim();if(!text)return;const target=entries.find(e=>e.id===id);const comments=[...(target.comments||[]),{author:"関谷蓮",text,createdAt:Date.now()}];await updateDoc(doc(db,"entries",id),{comments,updatedAt:serverTimestamp()});input.value=""};
+window.setRating=async function(id,rating){await updateDoc(doc(db,"entries",id),{rating,updatedAt:serverTimestamp()})};
+window.saveRatingText=async function(id){const input=document.getElementById("ratingText-"+id);await updateDoc(doc(db,"entries",id),{ratingText:input.value.trim(),updatedAt:serverTimestamp()})};
+window.deleteEntry=async function(id){if(confirm("この日記を削除しますか？")){await deleteDoc(doc(db,"entries",id))}};
+function listen(){const q=query(collection(db,"entries"),orderBy("createdAt","desc"));onSnapshot(q,(snap)=>{entries=snap.docs.map(d=>({id:d.id,...d.data()}));document.getElementById("syncStatus").textContent="☁️ 共有中：別端末にも反映されます";render()},(err)=>{document.getElementById("syncStatus").textContent="⚠️ 接続エラー：Firebaseルールを確認してください";console.error(err)})}
+
+    function renderGraph(){
+      const graphBars = document.getElementById("graphBars");
+      const avg = document.getElementById("avgAchievement");
+      const mini = document.getElementById("goalMiniList");
+      if(!graphBars || !avg || !mini) return;
+
+      const sorted = [...entries]
+        .filter(e => e.goals && e.goals.length)
+        .sort((a,b) => String(a.date || "").localeCompare(String(b.date || "")))
+        .slice(-10);
+
+      if(sorted.length === 0){
+        graphBars.innerHTML = '<div class="empty" style="width:100%;padding:22px 8px;">まだグラフにできる日記がありません</div>';
+        avg.textContent = "平均 0%";
+        mini.innerHTML = "";
+        return;
+      }
+
+      const rates = sorted.map(e => {
+        const total = (e.goals || []).length || 1;
+        const done = (e.goals || []).filter(g => g.done).length;
+        return Math.round(done / total * 100);
+      });
+      const avgRate = Math.round(rates.reduce((a,b)=>a+b,0) / rates.length);
+      avg.textContent = "平均 " + avgRate + "%";
+
+      graphBars.innerHTML = sorted.map((e, i) => {
+        const rate = rates[i];
+        const label = formatShortDate(e.date);
+        return `
+          <div class="bar-wrap">
+            <div class="bar-value">${rate}%</div>
+            <div class="bar" style="height:${Math.max(8, rate * 1.15)}px"></div>
+            <div class="bar-label">${label}</div>
+          </div>
+        `;
+      }).join("");
+
+      const goalStats = goals.map((goalText, i) => {
+        let count = 0;
+        let total = 0;
+        entries.forEach(e => {
+          const g = (e.goals || [])[i];
+          if(g){
+            total++;
+            if(g.done) count++;
+          }
+        });
+        const rate = total ? Math.round(count / total * 100) : 0;
+        return { goalText, rate, count, total };
+      });
+
+      mini.innerHTML = goalStats.map(g => `
+        <div class="goal-mini">
+          <b>${g.rate}%</b>　${escapeHtml(g.goalText)}
+        </div>
+      `).join("");
+    }
+
+    function formatShortDate(d){
+      if(!d) return "";
+      const parts = String(d).split("-");
+      if(parts.length === 3) return Number(parts[1]) + "/" + Number(parts[2]);
+      return d;
+    }
+
+    function render(){renderGraph();const box=document.getElementById("entries");document.getElementById("entryCount").textContent=entries.length+"件";if(entries.length===0){box.innerHTML=`<div class="panel empty">まだ日記がありません。<br>里桜さん側で最初の日記を書いてね。</div>`;return}box.innerHTML=entries.map(e=>{const done=(e.goals||[]).filter(g=>g.done).length;const total=(e.goals||[]).length||goals.length;const comments=e.comments||[];const stars=[1,2,3,4,5].map(n=>`<button class="star ${Number(e.rating||0)>=n?'on':''}" ${role==="commenter"?`onclick="setRating('${e.id}',${n})"`:""}>⭐</button>`).join("");return `<div class="entry"><div class="entry-head"><div><div class="author">記入：${escapeHtml(e.author||"髙橋里桜")}</div><div class="diary-text">${escapeHtml(e.text||"")}</div></div><div class="date-pill">📅 ${formatDate(e.date)}</div></div><div class="goal-summary"><span class="tag done">達成 ${done}/${total}</span>${(e.goals||[]).map(g=>`<span class="tag ${g.done?'done':'miss'}">${g.done?'✓':'・'} ${escapeHtml(g.text)}</span>`).join("")}</div><div class="rating-box"><b>蓮さんの評価</b><div class="stars">${stars}</div>${e.ratingText?`<div class="small-note">📝 ${escapeHtml(e.ratingText)}</div>`:`<div class="small-note">まだ評価コメントはありません</div>`}${role==="commenter"?`<div class="comment-form"><input id="ratingText-${e.id}" type="text" placeholder="評価コメントを書く" value="${escapeAttr(e.ratingText||"")}"><button class="main-btn" onclick="saveRatingText('${e.id}')">保存</button></div>`:""}</div><div class="comment-box"><b>コメント</b>${comments.length?comments.map(c=>`<div class="comment"><div class="who">${escapeHtml(c.author||"関谷蓮")}</div><p>${escapeHtml(c.text||"")}</p></div>`).join(""):`<div class="small-note">まだコメントはありません</div>`}${role==="commenter"?`<div class="comment-form"><input id="comment-${e.id}" type="text" placeholder="コメントを書く"><button class="main-btn" onclick="addComment('${e.id}')">送信</button></div>`:""}</div>${role==="writer"?`<button class="danger" onclick="deleteEntry('${e.id}')">この日記を削除</button>`:""}</div>`}).join("")}
+function formatDate(d){if(!d)return"";const p=d.split("-");if(p.length===3)return`${Number(p[0])}/${Number(p[1])}/${Number(p[2])}`;return d}function escapeHtml(str){return String(str).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}function escapeAttr(str){return escapeHtml(str).replace(/"/g,"&quot;")}
+function init(){setupGoals();setRole(role);document.getElementById("dateInput").valueAsDate=new Date();listen()}document.getElementById("pin").addEventListener("keydown",e=>{if(e.key==="Enter")unlock()});
 </script>
 </body>
 </html>
